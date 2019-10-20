@@ -1,5 +1,5 @@
 import socket, sys
-from RPi.GPIO import GPIO
+from RPi import GPIO
 import json, threading, configparser, os, time, requests
 from threading import Thread
 
