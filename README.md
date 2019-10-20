@@ -8,3 +8,7 @@ The app will communicate with a Raspberry Pi which will open the gate using the 
 - [ ] Create the app for iOS.
 - [ ] Create the app for Android.
 - [ ] ...
+
+## Usefull links
+### How to setup dynamic DNS
+https://letswp.io/cloudflare-as-dynamic-dns-raspberry-pi/
