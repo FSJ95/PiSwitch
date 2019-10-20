@@ -133,7 +133,7 @@ class ClientThread(threading.Thread):
                 pass
             if cmd == 'update':
                 index = int(val)
-                if not 0 <= index < MAX_OUTPUT_PINS:
+                if  0 <= index and index < MAX_OUTPUT_PINS:
                     threading.Thread(target=flipOutput, args=(self.socket, index)).start()
                 if cmd == 'get':
                     if val == 'status':
