@@ -60,8 +60,6 @@ def flipOutput(socket, index):
     if MODES[index] == 'M':
         time.sleep(DELAY)
         flip(socket, index)
-        time.sleep(5000)
-        flip(socket, index)
 
 
 def getInputs():
