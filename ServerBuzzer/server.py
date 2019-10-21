@@ -60,6 +60,8 @@ def flipOutput(socket, index):
     if MODES[index] == 'M':
         time.sleep(DELAY)
         flip(socket, index)
+        time.sleep(5000)
+        flip(socket, index)
 
 
 def getInputs():
@@ -135,6 +137,7 @@ class ClientThread(threading.Thread):
                 index = int(val)
                 if  0 <= index and index < MAX_OUTPUT_PINS:
                     threading.Thread(target=flipOutput, args=(self.socket, index)).start()
+
                 if cmd == 'get':
                     if val == 'status':
                         sendResponse(self.socket, 'update', status)
