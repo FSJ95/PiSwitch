@@ -10,7 +10,7 @@ The app will communicate with a Raspberry Pi which will open the gate using the 
 - [x] Create the app for iOS.
 - [x] Create the app for Android.
 - [ ] Publish to AppStore/PlayStore.
-- [ | Write a some decent tutorial.
+- [ ] Write a some decent tutorial.
 
 ## Useful stuff
 ### How to setup dynamic DNS
