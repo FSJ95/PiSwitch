@@ -5,11 +5,12 @@ The app will communicate with a Raspberry Pi which will open the gate using the 
 ## To do
 - [x] Find out best way to communicate between the app and the Pi.
 - [x] Code the server switch
-- [ ] Code the server buzzer
-- [ ] Design the app.
-- [ ] Create the app for iOS.
-- [ ] Create the app for Android.
-- [ ] ...
+- [x] Code the server buzzer
+- [x] Design the app.
+- [x] Create the app for iOS.
+- [x] Create the app for Android.
+- [ ] Publish to AppStore/PlayStore.
+- [ | Write a some decent tutorial.
 
 ## Useful stuff
 ### How to setup dynamic DNS
