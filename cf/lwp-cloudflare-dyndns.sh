@@ -5,10 +5,10 @@
 # Original non-RPi article: https://phillymesh.net/2016/02/23/setting-up-dynamic-dns-for-your-registered-domain-through-cloudflare/
 
 # Update these with real values
-auth_email="email@example.com"
+auth_email="FSJ95@hotmail.dk"
 auth_key="global_api_key_goes_here" 
-zone_name="example.com"
-record_name="home.example.com"
+zone_name="soendergaard.software"
+record_name="gateopener.soendergaard.software"
 
 # Don't touch these
 ip=$(curl -s http://ipv4.icanhazip.com)
