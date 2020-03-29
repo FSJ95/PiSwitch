@@ -1,4 +1,4 @@
-import socket, sys
+import socket, sys, errno
 from RPi import GPIO
 import json, threading, configparser, os, time, requests
 from threading import Thread
@@ -74,8 +74,11 @@ def sendResponse(connection, ctx, status):
     response = {}
     response['ctx'] = ctx
     response['status'] = status
-    connection.send(bytes(json.dumps(response), 'UTF-8'))
-
+    try:
+        connection.send(bytes(json.dumps(response), 'UTF-8'))
+    except socket.error as e:
+        print(" ---- removed a broken pipe ------")
+        connectionsList.remove(connection)
 
 def updateAllClients(socket):
     global connectionsList
@@ -83,20 +86,19 @@ def updateAllClients(socket):
     if socket == '':
         for currentConn in connectionsList:
             sendResponse(currentConn, 'update', status)
-
     else:
         sendResponse(socket, 'update', status)
         for currentConn in connectionsList:
             if currentConn != socket:
                 sendResponse(currentConn, 'update', status)
 
-
 def checkInputs():
     delay = 0.1
     for x in range(0, MAX_OUTPUT_PINS):
         if GPIO.input(INPUTS[x]) == 0:
-            threading.Thread(target=flipOutput, args=('', x)).start()
-            delay = 0.2
+            if GPIO.input(OUTPUTS[x]) == 1:
+                threading.Thread(target=flipOutput, args=('', x)).start()
+                delay = 0.2
 
     threading.Timer(delay, checkInputs).start()
 
@@ -134,7 +136,8 @@ class ClientThread(threading.Thread):
             if cmd == 'update':
                 index = int(val)
                 if  0 <= index and index < MAX_OUTPUT_PINS:
-                    threading.Thread(target=flipOutput, args=(self.socket, index)).start()
+                    if GPIO.input(OUTPUTS[index]) == 1:
+                        threading.Thread(target=flipOutput, args=(self.socket, index)).start()
 
                 if cmd == 'get':
                     if val == 'status':
@@ -142,6 +145,7 @@ class ClientThread(threading.Thread):
 
         if self.socket in connectionsList:
             connectionsList.remove(self.socket)
+            print(connectionsList)
         print(self.ip + ' Disconnected...')
 
 
@@ -156,3 +160,4 @@ while True:
     clientsock, (TCP_IP, TCP_PORT) = tcpsock.accept()
     newthread = ClientThread(TCP_IP, TCP_PORT, clientsock)
     newthread.start()
+
